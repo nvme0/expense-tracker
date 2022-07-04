@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.auth.UserRecord.CreateRequest;
+import com.google.firebase.cloud.FirestoreClient;
 
 @Service
 public class UserService {
@@ -20,10 +21,9 @@ public class UserService {
   @Autowired
   private FirebaseAuth auth;
 
-  @Autowired
-  private Firestore firestore;
-
   public UserDto getUser(String uid) throws InterruptedException, ExecutionException {
+    Firestore firestore = FirestoreClient.getFirestore();
+
     DocumentReference documentReference = firestore.document("user/" + uid);
     ApiFuture<DocumentSnapshot> apiFuture = documentReference.get();
     DocumentSnapshot document = apiFuture.get();
@@ -37,6 +37,8 @@ public class UserService {
   }
 
   public UserDto createUser(CreateUserDto dto) throws FirebaseAuthException {
+    Firestore firestore = FirestoreClient.getFirestore();
+
     UserRecord userRecord = auth.createUser(
         new CreateRequest()
             .setEmail(dto.getEmail())
