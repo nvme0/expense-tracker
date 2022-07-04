@@ -1,8 +1,16 @@
 package com.tracker.api.user;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class UserDto {
+
+  @Schema(required = true)
   private String uid;
+
+  @Schema(required = true)
   private String email;
+
+  @Schema(required = true)
   private String name;
 
   //
@@ -58,5 +66,4 @@ public class UserDto {
     setEmail(email);
     return this;
   }
-
 }

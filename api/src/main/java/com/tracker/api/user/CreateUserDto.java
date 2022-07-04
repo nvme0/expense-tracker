@@ -1,8 +1,16 @@
 package com.tracker.api.user;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class CreateUserDto {
+
+  @Schema(required = true)
   private String email;
+
+  @Schema(required = true)
   private String password;
+
+  @Schema(required = true)
   private String name;
 
   //
